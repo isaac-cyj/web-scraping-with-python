@@ -3,7 +3,7 @@ import scrapy
 class CoinrankingSpider(scrapy.Spider):
     name = 'coinranking'
     allowed_domains = ['https://coinranking.com/']
-    start_urls = ['https://coinranking.com//']
+    start_urls = ['https://coinranking.com/']
 
     def parse(self, response):
         # css selector selects HTML elements based on which HTML tag you specify
