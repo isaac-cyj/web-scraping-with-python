@@ -43,4 +43,4 @@ parser.add_argument("-ua","--useragent",type=str,default="python user-agent",hel
 args = parser.parse_args();
 browser(args.host, args.out,args.useragent);
 
-#example usage browser.py -H https://www.straitstimes.com:443  -ua Mobile -o out.html
+#example usage python browser.py -H https://www.straitstimes.com:443  -ua Mobile -o out.html

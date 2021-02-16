@@ -24,20 +24,22 @@ class MohCovid19Spider(scrapy.Spider):
 
 
 ########################  return DOSCORN Level ########################
-        doscornlevel = response.css('div.sfContentBlock span::text ').getall()[2]
-        yield {"DOSCORN Level" : doscornlevel}
+        yield {"DOSCORN Level" : response.css('div.sfContentBlock tr  ::text').getall()[7]}
 
 ########################  retrieve last update  ########################
         lastupdate = response.css('div.sfContentBlock ::text ').getall()[20]
-        lastupdate = lastupdate.replace(u'\u00a0', u' ')
+        lastupdate = lastupdate.replace(u'\xa0', u' ')
         yield{"updated since" : lastupdate}
 
 ######################## return amount of imported cases ########################
         #remove \xa0 from the string
-        importedcases  = response.css('div.sfContentBlock ::text ').getall()[22]
+        importedcases  = response.css('div.sfContentBlock tr  ::text').getall()[11]
         importedcases = importedcases.replace(u'\xa0', u'')
         yield {"Amount of imported cases" : importedcases}
 
+        yield{"summary" : response.css('div.sfContentBlock ::text').getall()[26]}
+        yield {"Active Cases" : response.css('div.sfContentBlock tr  ::text').getall()[16]}
+        yield {"Discharged" : response.css('div.sfContentBlock tr  ::text').getall()[18]}
 
 
 

@@ -26,10 +26,18 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 <!DOCTYPE html>
 <html>
 <body>
+<style>
+p , h1 {
+  text-align: center;
+  color: red;
+}
+</style>
+
 
 <h1>My First Heading</h1>
 
 <p>My first paragraph.</p>
+<img src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg?resize=750px:*" alt="Girl in a jacket" width="100" height="100">
 
 </body>
 </html>
