@@ -1,66 +1,78 @@
 import scrapy
 
-
 class MohCovid19Spider(scrapy.Spider):
     name = 'moh_covid19'
-    url = "https://www.moh.gov.sg/covid-19"
-    allowed_domains = [url]
-    start_urls = [url]
+    #start_urls = [url]
 
-    #class attributes
-    #images = {}
+    def start_requests(self):
+        url = "https://www.moh.gov.sg/covid-19"
+        yield scrapy.Request(url=url, cookies={'ASP.NET_SessionId': ''},callback=self.parse)
 
     def parse(self, response):
-        print('\n' * 10)
-        print(response.url)
 
-      #  i = 0
-        #get images
-      #  for x in response.xpath('//img/@src').getall():
-            # returns img link dictionary
-         #   i+=1
-           # MohCovid19Spider.images["image link %d"%(i)] = x
-       # i = 0
+        #DOSCORN Level
+        yield {'DOSCORN Level' : response.css('div.sfContentBlock h4 ::text').getall()[2]}
 
 
-        yield {"DOSCORN Level" : response.css('div.sfContentBlock tr  ::text').getall()[7]}
-
-        lastupdate = response.css('div.sfContentBlock ::text ').getall()[20]
-        lastupdate = lastupdate.replace(u'\xa0', u' ')
-        yield{"case updated since" : lastupdate}
-
-        importedcases  = response.css('div.sfContentBlock tr  ::text').getall()[11]
-        importedcases = importedcases.replace(u'\xa0', u'')
-        yield {"Amount of imported cases" : importedcases}
-
-        yield{"summary" : response.css('div.sfContentBlock ::text').getall()[26]}
-        yield {"Active Cases" : response.css('div.sfContentBlock tr  ::text').getall()[16]}
-        yield {"Discharged" : response.css('div.sfContentBlock tr  ::text').getall()[18]}
-        yield {"In community facilities" : response.css('div.sfContentBlock tr  ::text').getall()[20] }
-        yield {"Hospitalised (Stable)" : response.css('div.sfContentBlock tr  ::text').getall()[22]}
-        yield {"Hospitalised (Crictal)" : response.css('div.sfContentBlock tr  ::text').getall()[24]}
-        yield {"Deaths" : response.css('div.sfContentBlock tr  ::text').getall()[27]}
-
-        swabtested = response.css('div.sfContentBlock ::text').getall()[57] +  response.css('div.sfContentBlock ::text').getall()[58]
-        swabtested = swabtested.replace(u'\u00a0',u'')
-        yield {"swab tested since " : swabtested}
-
-        yield {"Total swab tested" : response.css('div.sfContentBlock tr  ::text').getall()[28]}
-        yield{"Average Daily Number Of Swabs Tested Over The Past Week":response.css('div.sfContentBlock tr  ::text').getall()[29]}
-        yield{"Total Swabs Per 1,000,000 Total Population":response.css('div.sfContentBlock tr  ::text').getall()[30]}
+        #total number of imported cases in Singapore since x
+        importedcases = response.css('div.sfContentBlock h3 strong ::text').getall()[1]
+        importedcases = importedcases.replace(u'\u00a0', u' ')
+        yield {'Imported Cases' : importedcases}
+        #total number of imported cases in Singapore
+        Timportedcases = response.css('div.sfContentBlock tr strong  ::text').getall()[4]
+        Timportedcases = Timportedcases.replace(u'\u00a0', u'')
+        yield {'Total Imported cases' : Timportedcases}
+        #total number of imported cases in Singapore *increased by*
+        Timportedcasesby = response.css('div.sfContentBlock tr strong  ::text').getall()[5]
+        Timportedcasesby = Timportedcasesby.replace(u'+', u'')
+        yield {'Imported cases increased by' : Timportedcasesby}
 
 
 
+        #case summary in Singapore as of x
+        yield {'Case summary' : response.css('div.sfContentBlock h3 strong ::text').getall()[2]}
+        #Active cases
+        yield {'Active cases' : response.css('div.sfContentBlock tr span b ::text').getall()[0]}
+        #Discharged
+        yield {'Discharged' : response.css('div.sfContentBlock tr span b ::text').getall()[1]}
+        #In Community Facilities
+        yield {'In Community Facilities' : response.css('div.sfContentBlock tr span b ::text').getall()[2]}
+        #Hospitalised (Stable)
+        yield {'Hospitalised (Stable)' : response.css('div.sfContentBlock tr span b ::text').getall()[3]}
+        #Hospitalised (Critical)
+        yield {'Hospitalised (Critical)' : response.css('div.sfContentBlock tr span b ::text').getall()[4]}
+        #Deaths
+        yield {'Deaths' : response.css('div.sfContentBlock tr span b ::text').getall()[5]}
 
 
 
+        #Number Of Swab Teseted as of x
+        swabtested = response.css('div.sfContentBlock h3 strong ::text').getall()[3] + ' ' + response.css('div.sfContentBlock h3 strong ::text').getall()[4]
+        swabtested = swabtested.replace(u'\u00a0', u'')
+        yield{'Swab Tested' : swabtested}
+        #Total Swab Tested
+        yield {'Total Swab Tested' : response.css('div.sfContentBlock tr span b ::text').getall()[6]}
+        #Average Daily Number Of Swabs Tested Over The Past Week
+        Adailyswab = response.css('div.sfContentBlock td strong ::text').getall()[11]
+        Adailyswab =  Adailyswab.replace(u'~', u'')
+        yield {'Average Daily Swabs Tested Over The Past Week' : Adailyswab}
+        #Total Swabs Per 1,000,000 Total Population
+        Tswabsper1m = response.css('div.sfContentBlock td strong ::text').getall()[12]
+        Tswabsper1m = Tswabsper1m.replace(u'~', u'')
+        yield {'Total Swabs Per 1mil Total Population' : Tswabsper1m}
 
-        #return image link
-        #for x in MohCovid19Spider.images:
-            #i += 1
-            #print("image link %d"%(i))
-            #yield {"image link %d"%(i): MohCovid19Spider.images["image link %d"%(i)]}
+
+        #Latest Update
+        yield {'Latest Update' : response.css('div.sfContentBlock tr td ::text').getall()[30]}
+        #Latest info
+        yield {'Latest Info' : response.css('div.sfContentBlock tr td ::text').getall()[31]}
 
 
+        #Get all image
         for x in response.xpath('//img/@src').getall():
             yield {"image link": x}
+
+        ############ save output ############
+        with open("moh_covid19.html", "w+", encoding='utf8') as w:
+            w.write(str(response.text))
+
