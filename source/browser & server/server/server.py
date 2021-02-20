@@ -10,14 +10,15 @@ class HTTPserver:
         # split to get method , URI , HTTP version
         words = lines[0].split(b" ")
         if len(lines) > 2:
-            self.method = words[0].decode()
-            self.uri = words[1].decode()
-            self.httpversion = words[2].decode()
+            global method      ; method      = words[0].decode()
+            global uri         ; uri         = words[1].decode()
+            global httpversion ; httpversion = words[2].decode()
             print(words[0].decode() + " " + words[1].decode() + " " + words[2].decode())
+
 
     def handle_GET(self,request):
        self.parse_HTTPrequest(request)
-       path = self.uri.strip('/')  # remove slash from URI
+       path = uri.strip('/')  # remove slash from URI
        if bool(path) == False: #empty path is False
             #An empty path means client is at the homepage therefore this is the default path
             path = 'server.html' #default html file
