@@ -1,48 +1,50 @@
 import socket
-import requests
+import os  # mainly used to find path of file
+import mimetypes # to get the content-type
+class HTTPserver:
+    """this method parse incoming request header and handle the GET request accordingly"""
+    def parse_HTTPrequest(self,request):
+        # split all line breaks
+        lines = request.split(b"\r\n")
+        # split to get method , URI , HTTP version
+        words = lines[0].split(b" ")
+        self.method = words[0].decode()
+        self.uri = words[1].decode()
+        self.httpversion = words[2].decode()
+        print(words[0].decode() + " " + words[1].decode() + " " + words[2].decode())
 
-SERVER_HOST = '0.0.0.0'
-SERVER_PORT = 8080
+    def handle_GET(self,request):
+       path = self.uri.strip('/')  # remove slash from URI
+       if bool(path) == False: #empty path is False
+            #An empty path means client is at the homepage therefore this is the default path
+            path = 'server.html'
+       if os.path.exists(path) and not os.path.isdir(path):
+            response_line = b'HTTP/1.1 200 OK \r\n'
+            content_type = mimetypes.guess_type(path)[0].encode() or b'text/html'
+            response_headers = b'Server: PankcakeServer\r\n' + b'content-type: ' + content_type + b'\r\n'
+            blank_line = b'\r\n'
+            with open(path, 'rb') as f:
+                response_body = f.read()
+            response = b''.join([response_line, response_headers, blank_line, response_body])
+            return response
 
 # Create socket
+SERVER_HOST = '127.0.0.1'
+SERVER_PORT = 8080
+
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind((SERVER_HOST, SERVER_PORT))
-    s.listen(1)
+    s.listen(5)
     print(f'Listening on port {SERVER_PORT} ...')
-
+    #wait for incoming client
     while True:
-        # Wait for client connections
         client, client_address = s.accept()
-        print(f"{client_address} has coonnected!")
-
+        print(f"{client_address} has connected!")
         # Get the client request
         with client as c:
-            request = c.recv(1024).decode()
-            print(request)
-
-            # Send HTTP response
-            response = """ \n
-<!DOCTYPE html>
-<html>
-<body>
-<style>
-p , h1 {
-  text-align: center;
-  color: red;
-}
-</style>
-
-
-<h1>My First Heading</h1>
-
-<p>My first paragraph.</p>
-<img src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg?resize=750px:*" alt="Girl in a jacket" width="100" height="100">
-
-</body>
-</html>
-
-"""
-            #send response to client
-            c.sendall("HTTP/1.1 200 OK".encode())
-            c.sendall(response.encode())
+            request = c.recv(1024)
+            #instantiate object from HTTPserver class
+            server = HTTPserver()
+            server.parse_HTTPrequest(request)
+            c.sendall(server.handle_GET(request))
