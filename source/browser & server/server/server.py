@@ -1,6 +1,7 @@
 import socket
 import os  # mainly used to find path of file
 import mimetypes # to get the content-type
+
 class HTTPserver:
     """this method parse incoming request header and handle the GET request accordingly"""
     def parse_HTTPrequest(self,request):
