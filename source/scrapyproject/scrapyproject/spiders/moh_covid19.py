@@ -3,16 +3,14 @@ import scrapy
 class MohCovid19Spider(scrapy.Spider):
     name = 'moh_covid19'
     #start_urls = [url]
-
     def start_requests(self):
         url = "https://www.moh.gov.sg/covid-19"
+                                     #sends emtpy session cookie to request for new session
         yield scrapy.Request(url=url, cookies={'ASP.NET_SessionId': ''},callback=self.parse)
 
     def parse(self, response):
-
         #DOSCORN Level
         yield {'DOSCORN Level' : response.css('div.sfContentBlock h4 ::text').getall()[2]}
-
 
         #total number of imported cases in Singapore since x
         importedcases = response.css('div.sfContentBlock h3 strong ::text').getall()[1]
@@ -26,7 +24,6 @@ class MohCovid19Spider(scrapy.Spider):
         Timportedcasesby = response.css('div.sfContentBlock tr strong  ::text').getall()[5]
         Timportedcasesby = Timportedcasesby.replace(u'+', u'')
         yield {'Imported cases increased by' : Timportedcasesby}
-
 
 
         #case summary in Singapore as of x
@@ -43,7 +40,6 @@ class MohCovid19Spider(scrapy.Spider):
         yield {'Hospitalised (Critical)' : response.css('div.sfContentBlock tr span b ::text').getall()[4]}
         #Deaths
         yield {'Deaths' : response.css('div.sfContentBlock tr span b ::text').getall()[5]}
-
 
 
         #Number Of Swab Teseted as of x
@@ -76,3 +72,6 @@ class MohCovid19Spider(scrapy.Spider):
         with open("moh_covid19.html", "w+", encoding='utf8') as w:
             w.write(str(response.text))
 
+#example usage
+#ensure cookies is enabled and cache is disabled
+#python -m scrapy runspider moh_covid19.py -o out.json

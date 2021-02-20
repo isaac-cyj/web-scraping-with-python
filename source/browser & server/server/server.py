@@ -17,7 +17,7 @@ class HTTPserver:
        path = self.uri.strip('/')  # remove slash from URI
        if bool(path) == False: #empty path is False
             #An empty path means client is at the homepage therefore this is the default path
-            path = 'server.html'
+            path = 'server.html' #default html file
        if os.path.exists(path) and not os.path.isdir(path):
             response_line = b'HTTP/1.1 200 OK \r\n'
             content_type = mimetypes.guess_type(path)[0].encode() or b'text/html'

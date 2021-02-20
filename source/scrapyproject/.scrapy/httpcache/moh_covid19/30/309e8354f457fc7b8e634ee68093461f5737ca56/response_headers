@@ -1,0 +1,20 @@
+Content-Type: text/html; charset=utf-8
+Date: Tue, 16 Feb 2021 13:34:57 GMT
+Access-Control-Allow-Origin: domain
+Content-Security-Policy: default-src 'unsafe-inline' 'unsafe-eval' 'self' https://cse.google.com http://cse.google.com https://clients1.google.com http://clients1.google.com https://va.ecitizen.gov.sg http://assets.adobedtm.com *.demdex.net http://wogadobeanalytics.sc.omtrdc.net http://va.ecitizen.gov.sg https://www.google.com https://s3-us-west-2.amazonaws.com http://fonts.googleapis.com http://ajax.googleapis.com https://fonts.gstatic.com cm.everesttech.net http://fast.wogaa.demdex.net https://tools.onemap.sg https://www.gstatic.com https://forms.cwp.gov.sg https://www.google-analytics.com wogadobeanalytics.sc.omtrdc.net https://assets.juicer.io https://connect.facebook.net https://www.facebook.com https://www.juicer.io https://graph.facebook.com https://static.juicer.io https://i.imgur.com https://scontent.xx.fbcdn.net https://external.xx.fbcdn.net https://external.xx.fbcdn.net https://twitter.com https://wogaa.demdex.net https://www.googleapis.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://www.onemap.sg http://www.moh.gov.sg http://www.youtube.com https://www.youtube.com https://static.pigeonhole.at https://pigeonhole.at form.gov.sg https://www.googleadservices.com/pagead/conversion_async.js https://googleads.g.doubleclick.net https://www.google.com.sg *.hotjar.com:* *.hotjar.io wss://*.hotjar.com https://*.wogaa.sg assets.adobedtm.com https://youtu.be https://*.arcgis.com https://assets.dcube.cloud; img-src 'self' 'unsafe-inline' 'unsafe-eval' data: *;
+Set-Cookie: rp_www.moh.gov.sg=db4c5946074c0bf59e8622986d44bf8b; httponly; path=/; secure; HttpOnly
+Set-Cookie: AWSALB=uiRdcnVd63chTip9K4ad5vJJ35eT/AhmZ53JcYP88Xcp76rrXvEtwR1G2iHKFs/i9wrL2QF9A2fPi2CSkSR5BH+Z0r0R0ghlj8RV+ukLAKVfuUhz8tQRbwvM+3rH; Expires=Tue, 23 Feb 2021 13:34:57 GMT; Path=/
+Set-Cookie: AWSALBCORS=uiRdcnVd63chTip9K4ad5vJJ35eT/AhmZ53JcYP88Xcp76rrXvEtwR1G2iHKFs/i9wrL2QF9A2fPi2CSkSR5BH+Z0r0R0ghlj8RV+ukLAKVfuUhz8tQRbwvM+3rH; Expires=Tue, 23 Feb 2021 13:34:57 GMT; Path=/; SameSite=None
+Strict-Transport-Security: max-age=31536000
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Cache-Control: max-age=86400, public
+X-Xss-Protection: 1; mode=block
+X-Access-Control-Allow-Origin: *
+Content-Encoding: gzip
+Vary: Accept-Encoding
+X-Cache: Hit from cloudfront
+Via: 1.1 2f077bf724c83d36c571c19cf846903e.cloudfront.net (CloudFront)
+X-Amz-Cf-Pop: SIN2-C1
+X-Amz-Cf-Id: 5bNGTSu3mt7_EpiRGO-2h6ByAqCIWZ3UaThouRtWnIsaU2o1Y8EpJA==
+Age: 50263
