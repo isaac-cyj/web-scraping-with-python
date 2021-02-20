@@ -1,5 +1,0 @@
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en
-User-Agent: Scrapy/2.4.1 (+https://scrapy.org)
-Accept-Encoding: gzip, deflate
-Cookie: rp_www.moh.gov.sg=db4c5946074c0bf59e8622986d44bf8b; AWSALB=67Ruabwho4Wh1TAUYFemg2FiU9eF6aUbIKL4Yt1xjWkIyLD+3pcoqCWZ9ZMv8e5U2WdwUmJn690s4Nsu5ugBytVllijCwfRB4ZQ5wfUe+7liwDR55Jt9hKnvdlW7; AWSALBCORS=67Ruabwho4Wh1TAUYFemg2FiU9eF6aUbIKL4Yt1xjWkIyLD+3pcoqCWZ9ZMv8e5U2WdwUmJn690s4Nsu5ugBytVllijCwfRB4ZQ5wfUe+7liwDR55Jt9hKnvdlW7
