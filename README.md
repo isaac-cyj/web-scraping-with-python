@@ -1,6 +1,6 @@
 # web-scraping-with-python
-This repo contains a spider which will be used to extract current Covid-19 data in Singapore. \ 
-Browser is used to check the status code and response header of the targeted URL \ 
+This repo contains a spider which will be used to extract current Covid-19 data in Singapore. <br />
+Browser is used to check the status code and response header of the targeted URL <br />
 Server is a simple webserver which uses the sockets library
 
 ## Usage
