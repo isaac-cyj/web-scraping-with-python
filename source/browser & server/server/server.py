@@ -26,14 +26,14 @@ class HTTPserver:
        if os.path.exists(path):
            response_line = b'HTTP/1.1 200 OK \r\n'
            content_type = mimetypes.guess_type(path)[0].encode() or b'text/html'
-           response_headers = b'Server: PankcakeServer\r\n' + b'content-type: ' + content_type + b'\r\n'
+           response_headers = b'Server: SimpleServer\r\n' + b'content-type: ' + content_type + b'\r\n'
            blank_line = b'\r\n'
            with open(path, 'rb') as f:
                response_body = f.read()
        #handle 404
        else:
-           response_line = b'HTTP/1.1 200 OK \r\n'
-           response_headers = b'Server: PankcakeServer\r\n' + b'content-type: text/html' + b'\r\n'
+           response_line = b'HTTP/1.1 404 Not Found \r\n'
+           response_headers = b'Server: SimpleServer\r\n' + b'content-type: text/html' + b'\r\n'
            with open('404page.html', 'rb') as f:
                response_body = f.read()
            blank_line = b'\r\n'
@@ -42,7 +42,7 @@ class HTTPserver:
        return response
 
 # Create socket
-SERVER_HOST = '127.0.0.1'
+SERVER_HOST = '0.0.0.0'
 SERVER_PORT = 8080
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
