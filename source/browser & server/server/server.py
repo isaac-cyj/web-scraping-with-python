@@ -48,7 +48,7 @@ SERVER_PORT = 8080
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind((SERVER_HOST, SERVER_PORT))
-    s.listen(5)
+    s.listen(1)
     print(f'Listening on port {SERVER_PORT} ...')
     #wait for incoming client
     while True:
