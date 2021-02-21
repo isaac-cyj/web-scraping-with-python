@@ -59,7 +59,9 @@ class MohCovid19Spider(scrapy.Spider):
 
 
         #Latest Update
-        yield {'Latest Update' : response.css('div.sfContentBlock tr td ::text').getall()[30]}
+        latestupdate = response.css('div.sfContentBlock tr td ::text').getall()[30]
+        latestupdate = latestupdate.replace(u'\u00a0', u'')
+        yield {'Latest Update' : latestupdate}
         #Latest info
         yield {'Latest Info' : response.css('div.sfContentBlock tr td ::text').getall()[31]}
 
