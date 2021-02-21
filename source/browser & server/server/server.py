@@ -32,9 +32,10 @@ class HTTPserver:
                response_body = f.read()
        #handle 404
        else:
-           response_line = b'HTTP/1.1 404 Not Found \r\n'
+           response_line = b'HTTP/1.1 200 OK \r\n'
            response_headers = b'Server: PankcakeServer\r\n'
-           response_body = b'<h1><center>404 Not Found</center></h1>'
+           with open('404page.html', 'rb') as f:
+               response_body = f.read()
            blank_line = b'\r\n'
 
        response = b''.join([response_line, response_headers, blank_line, response_body])
