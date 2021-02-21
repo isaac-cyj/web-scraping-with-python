@@ -33,7 +33,7 @@ class HTTPserver:
        #handle 404
        else:
            response_line = b'HTTP/1.1 200 OK \r\n'
-           response_headers = b'Server: PankcakeServer\r\n'
+           response_headers = b'Server: PankcakeServer\r\n' + b'content-type: text/html' + b'\r\n'
            with open('404page.html', 'rb') as f:
                response_body = f.read()
            blank_line = b'\r\n'
