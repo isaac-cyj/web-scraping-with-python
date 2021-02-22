@@ -69,7 +69,8 @@ class MohCovid19Spider(scrapy.Spider):
         #Get all image
         for x in response.xpath('//img/@src').getall():
             yield {"image link": x}
-
+        print('\n'*5)
+        print(response.request.headers['User-Agent'])
         ############ save output ############
         with open("moh_covid19.html", "w+", encoding='utf8') as w:
             w.write(str(response.text))
