@@ -3,13 +3,12 @@ import os  # mainly used to find path of file
 import mimetypes # to get the content-type
 
 class HTTPserver:
-    """this method parse incoming request header and handle the GET request accordingly"""
     def parse_HTTPrequest(self,request):
         # split all line breaks
         lines = request.split(b"\r\n")
         # split to get method , URI , HTTP version
         words = lines[0].split(b" ")
-        if len(lines) > 2:
+        if len(lines) > 2: #ensure lines contains URI
             global method      ; method      = words[0].decode()
             global uri         ; uri         = words[1].decode()
             global httpversion ; httpversion = words[2].decode()
@@ -22,7 +21,7 @@ class HTTPserver:
        if bool(path) == False: #empty path is False
             #An empty path means client is at the homepage therefore this is the default path
             path = 'server.html' #default html file
-       #handle 200
+       #any handle 200
        if os.path.exists(path):
            response_line = b'HTTP/1.1 200 OK \r\n'
            content_type = mimetypes.guess_type(path)[0].encode() or b'text/html'
@@ -30,7 +29,7 @@ class HTTPserver:
            blank_line = b'\r\n'
            with open(path, 'rb') as f:
                response_body = f.read()
-       #handle 404
+       #any handle 404
        else:
            response_line = b'HTTP/1.1 404 Not Found \r\n'
            response_headers = b'Server: SimpleServer\r\n' + b'content-type: text/html' + b'\r\n'
@@ -42,7 +41,7 @@ class HTTPserver:
        return response
 
 # Create socket
-SERVER_HOST = '0.0.0.0'
+SERVER_HOST = '127.0.0.1'
 SERVER_PORT = 8080
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
